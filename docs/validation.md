@@ -57,7 +57,7 @@ Those concerns belong to the behavioral evaluation suite under `evals/project-de
 
 `.github/workflows/validate.yml` runs the validator for pull requests, pushes to `main`, and manual workflow dispatches.
 
-CI intentionally uses the same command contributors run locally. This keeps local and hosted validation behavior aligned.
+The workflow uses the supported major versions of the official checkout and Python-setup actions and runs Python 3.12. CI intentionally uses the same validation command contributors run locally so local and hosted validation behavior stay aligned.
 
 ## Adding new deterministic checks
 
