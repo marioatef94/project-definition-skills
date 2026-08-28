@@ -12,7 +12,11 @@ I already have a requirements document. Review it for gaps and conflicts, then t
 
 ## Environment
 
-Provide an existing requirements document that includes:
+Use the fixed fixture:
+
+- [`../fixtures/003-existing-requirements.md`](../fixtures/003-existing-requirements.md)
+
+The fixture intentionally contains:
 
 - a clear goal and target users;
 - several functional requirements;
