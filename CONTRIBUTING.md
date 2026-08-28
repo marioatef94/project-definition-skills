@@ -35,6 +35,8 @@ python -X utf8 scripts/validate_repo.py
 
 The same command runs in CI. See [`docs/validation.md`](docs/validation.md) for the checks it performs and the boundary between deterministic validation and behavioral evaluations.
 
+Deterministic CI must pass before a pull request is considered structurally ready. Changes to observable skill behavior should also include relevant behavioral evaluation evidence before promotion to a stable release.
+
 ## Skill changes
 
 For a new or modified skill:
