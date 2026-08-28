@@ -106,7 +106,7 @@ An executing AI agent may use any available mechanism that can provide the requi
 - local filesystem access;
 - plain Markdown or other document files.
 
-The skill does **not** require any of these integrations. It should adapt to the capabilities actually available in the user's environment.
+The skill does **not** require any of these integrations. It adapts to the capabilities actually available in the user's environment.
 
 For example:
 
@@ -149,9 +149,11 @@ Write local .md or document files
 
 Provider-specific authentication, credentials, URLs, commands, and API behavior belong to the executing agent or integration layer, not to the core skill.
 
+If no persistence capability exists, the agent can still produce complete drafts in the conversation and must state clearly that they were not saved.
+
 ## Supported starting points
 
-The skill is intended to handle more than greenfield ideas. A user may begin with:
+The skill handles more than greenfield ideas. A user may begin with:
 
 - a one-sentence idea;
 - an existing proposal;
@@ -197,7 +199,69 @@ Publish / save
 Readiness assessment
 ```
 
-See [`docs/project-definition-user-journey-v1.md`](docs/project-definition-user-journey-v1.md) for the detailed journey and [`docs/project-definition-skill-contract-v1.md`](docs/project-definition-skill-contract-v1.md) for the behavioral contract currently under design.
+The detailed design is documented in:
+
+- [`docs/project-definition-skill-contract-v1.md`](docs/project-definition-skill-contract-v1.md)
+- [`docs/project-definition-user-journey-v1.md`](docs/project-definition-user-journey-v1.md)
+- [`docs/capability-contract-v1.md`](docs/capability-contract-v1.md)
+- [`docs/documentation-standard-v1.md`](docs/documentation-standard-v1.md)
+
+## Available skills
+
+### `project-definition` — Beta
+
+The first usable skill is available at [`skills/project-definition/`](skills/project-definition/).
+
+It supports:
+
+- greenfield project discovery;
+- existing requirements review;
+- adaptive clarification;
+- requirements normalization;
+- conditional research;
+- minimum-sufficient document selection;
+- local or connected persistence;
+- human-controlled authoritative publishing;
+- delivery-readiness assessment.
+
+The skill package contains a lean `SKILL.md`, lazy-loaded operational references, and generic document templates.
+
+```text
+skills/project-definition/
+├── SKILL.md
+├── references/
+│   ├── capabilities.md
+│   ├── discovery.md
+│   ├── requirements.md
+│   ├── document-selection.md
+│   ├── documentation-standard.md
+│   └── readiness.md
+└── assets/
+    ├── overview-template.md
+    ├── requirements-template.md
+    ├── research-template.md
+    ├── decision-template.md
+    └── architecture-overview-template.md
+```
+
+## Using the skill
+
+Install or copy the `skills/project-definition/` folder into a location your Agent Skills-compatible AI environment can discover. The exact personal/global/project skill directory varies by client, so follow the installation conventions of the AI environment you use.
+
+The skill itself does not contain credentials or integration configuration. Configure any connected tools, MCP servers, local filesystem access, or other capabilities in the executing AI environment.
+
+Then invoke the skill explicitly or ask the AI agent for project-definition work, for example:
+
+```text
+Use the project-definition skill.
+I have these meeting notes and a rough project idea. Review what I already have, ask me only the important missing questions, and prepare the minimum project-definition documents. Keep them local as Markdown files.
+```
+
+Or:
+
+```text
+Use the project-definition skill to review my existing requirements. Read the project documents available through my connected tools, identify gaps and conflicts, and propose updates. Do not publish anything until I approve the changes.
+```
 
 ## Design principles
 
@@ -226,7 +290,7 @@ project-definition-skills/
 └── LICENSE
 ```
 
-Each released skill will use the portable Agent Skills folder convention:
+Each skill follows the portable Agent Skills folder convention:
 
 ```text
 skills/<skill-name>/
@@ -236,15 +300,9 @@ skills/<skill-name>/
 └── scripts/                # Optional deterministic helpers
 ```
 
-## Planned first skill
-
-The first skill will be `project-definition`: a guided workflow for moving from an idea or incomplete project context through discovery, structured requirements, research when necessary, project documentation, and delivery-readiness assessment.
-
-The detailed behavior is being specified and reviewed before the first skill implementation is published.
-
 ## Project status
 
-**Early development.** The repository foundation, behavioral contract, user journey, capability model, and documentation standards are being established before the first stable skill release.
+**Beta / early development.** The first `project-definition` skill is implemented, but it still requires systematic evaluation across multiple project types and execution environments before a stable release.
 
 ## Contributing
 
