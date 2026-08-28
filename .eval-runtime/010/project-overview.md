@@ -10,8 +10,9 @@ Create a small online storefront that lets customers browse products, add items 
 ## Current scope
 - Product browsing
 - Cart management
-- Account creation and sign-in
-- Checkout
+- Optional account creation and sign-in
+- Guest checkout
+- Checkout for signed-in customers
 - Order confirmation
 - Basic order administration
 
@@ -19,3 +20,7 @@ Create a small online storefront that lets customers browse products, add items 
 - Marketplace sellers
 - Subscription commerce
 - Loyalty program
+
+## Open impact questions
+- Guest-data retention beyond order fulfillment and support is not yet decided.
+- Post-order optional account creation and order linking are not yet decided.
