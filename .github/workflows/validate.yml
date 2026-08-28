@@ -26,3 +26,10 @@ jobs:
 
       - name: Run deterministic validation
         run: python -X utf8 scripts/validate_repo.py
+
+      - name: Smoke test generic installer
+        shell: bash
+        run: |
+          target="$(mktemp -d)"
+          python -X utf8 scripts/install_skill.py --skill project-definition --target "$target"
+          test -f "$target/project-definition/SKILL.md"
