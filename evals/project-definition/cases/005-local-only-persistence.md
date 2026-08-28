@@ -12,9 +12,10 @@ Keep this project completely local. Generate the approved project overview and r
 
 ## Environment
 
+- Provide [`../fixtures/ready-appointment-project.md`](../fixtures/ready-appointment-project.md) as the approved project context.
 - Local filesystem read/write available.
 - No remote document or work-management capability should be used.
-- Assume the definition has already been clarified enough to draft and the user approves the two artifacts.
+- The fixture explicitly approves exactly the Overview and Requirements artifacts for this case.
 
 ## Expected behavior
 
