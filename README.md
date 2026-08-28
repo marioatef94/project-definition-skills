@@ -263,6 +263,20 @@ Or:
 Use the project-definition skill to review my existing requirements. Read the project documents available through my connected tools, identify gaps and conflicts, and propose updates. Do not publish anything until I approve the changes.
 ```
 
+## Validation
+
+Deterministic repository validation is available locally and in CI.
+
+```bash
+python -X utf8 scripts/validate_repo.py
+```
+
+It checks skill metadata and structure, referenced resources, relative Markdown links, evaluation-case structure, and core repository consistency without requiring model execution or third-party Python packages.
+
+Behavioral quality is evaluated separately through [`evals/project-definition/`](evals/project-definition/), because deterministic checks cannot prove that an AI agent will ask good questions, preserve uncertainty, respect approval boundaries, or avoid hallucinated requirements.
+
+See [`docs/validation.md`](docs/validation.md) for details.
+
 ## Design principles
 
 1. **Provider agnostic** — Skills describe required capabilities, not vendor-specific integrations.
@@ -281,8 +295,10 @@ Use the project-definition skill to review my existing requirements. Read the pr
 ```text
 project-definition-skills/
 ├── skills/                 # Portable Agent Skills
+├── evals/                  # Provider-neutral behavioral evaluations
+├── scripts/                # Deterministic repository validation
 ├── docs/                   # Standards and design guidance
-├── .github/                # Contribution and issue templates
+├── .github/                # Contribution, issue, and CI configuration
 ├── README.md
 ├── CONTRIBUTING.md
 ├── CODE_OF_CONDUCT.md
@@ -302,7 +318,7 @@ skills/<skill-name>/
 
 ## Project status
 
-**Beta / early development.** The first `project-definition` skill is implemented, but it still requires systematic evaluation across multiple project types and execution environments before a stable release.
+**Beta / early development.** The first `project-definition` skill is implemented, with deterministic CI and a behavioral evaluation suite in place. The behavioral cases still need systematic execution across multiple project types and compatible AI environments before a stable release.
 
 ## Contributing
 
