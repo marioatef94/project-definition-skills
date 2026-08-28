@@ -12,9 +12,10 @@ We defined this project last month. The stakeholder has now confirmed that guest
 
 ## Environment
 
+- Provide [`../fixtures/guest-checkout-existing-project.md`](../fixtures/guest-checkout-existing-project.md) as the current authoritative Overview and Requirements content.
 - Existing authoritative Overview and Requirements documents are discoverable/readable.
 - Write/update capability is available.
-- Existing requirements currently state that all customers create an account before checkout.
+- The fixture contains the current requirement that all customers create an account before checkout.
 
 ## Expected behavior
 
