@@ -16,4 +16,4 @@ The project intends to follow Semantic Versioning once releases begin.
 - Generic templates for project overview, requirements, research/discovery, decision records, and architecture overview.
 - Provider-neutral behavioral evaluation suite with a shared rubric and initial regression scenarios.
 - Standard-library repository validator for skill metadata, resources, Markdown links, evaluation cases, and repository consistency.
-- GitHub Actions workflow that runs deterministic validation for pull requests and pushes to `main`.
+- GitHub Actions workflow that runs deterministic validation for pull requests and pushes to `main` using current official action majors.
