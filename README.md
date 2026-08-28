@@ -273,7 +273,7 @@ python -X utf8 scripts/validate_repo.py
 
 It checks skill metadata and structure, referenced resources, relative Markdown links, evaluation-case structure, and core repository consistency without requiring model execution or third-party Python packages.
 
-The current beta branch passes the deterministic suite with **202 checks and 0 validator warnings**.
+The deterministic suite currently passes **202 checks with 0 validator warnings**.
 
 Behavioral quality is evaluated separately through [`evals/project-definition/`](evals/project-definition/), because deterministic checks cannot prove that an AI agent will ask good questions, preserve uncertainty, respect approval boundaries, or avoid hallucinated requirements.
 
