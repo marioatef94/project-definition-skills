@@ -12,7 +12,7 @@ I do not know the payment model or final launch region yet. Mark both as decisio
 
 ## Environment
 
-- Enough unrelated context exists to define the rest of the project.
+- Provide [`../fixtures/deferred-decisions-project.md`](../fixtures/deferred-decisions-project.md) as the current project context.
 - Payment model and launch region affect some requirements but do not block all project-definition work.
 
 ## Expected behavior
