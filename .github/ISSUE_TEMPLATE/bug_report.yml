@@ -1,0 +1,29 @@
+name: Bug report
+description: Report incorrect, unsafe, or inconsistent skill behavior.
+title: "[Bug]: "
+labels: []
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What happened, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Provide a minimal generic example. Remove confidential information.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Execution environment
+      description: Describe the AI agent/client and relevant capabilities without including credentials.
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: Explain the severity or risk of the behavior.

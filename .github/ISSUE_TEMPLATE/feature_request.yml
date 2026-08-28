@@ -1,0 +1,24 @@
+name: Feature request
+description: Propose a new reusable capability or improvement.
+title: "[Enhancement]: "
+labels: []
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: Describe the user need rather than only the proposed implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the desired reusable workflow or contract.
+    validations:
+      required: true
+  - type: textarea
+    id: portability
+    attributes:
+      label: Portability considerations
+      description: Explain how the proposal remains independent of providers, projects, and user roles.
