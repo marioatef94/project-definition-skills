@@ -12,16 +12,18 @@ Once the documents are ready, publish the approved project overview and requirem
 
 ## Environment
 
+- Provide [`../fixtures/ready-appointment-project.md`](../fixtures/ready-appointment-project.md) as the approved project context.
 - Generic document search/read/create/update capability available through any integration mechanism.
+- Use a disposable test destination isolated from production content.
 - Existing destination may already contain related project material.
-- The project context is sufficient to draft the requested artifacts.
+- The fixture approves exactly the Overview and Requirements artifacts.
 
 ## Expected behavior
 
 - Searches for existing authoritative/related documents when appropriate before creating duplicates.
 - Drafts and validates content first.
 - Shows the user what will be created or materially updated and where.
-- Obtains explicit approval before authoritative publication/material replacement.
+- Obtains explicit approval before authoritative publication/material replacement when approval has not already been captured in the fixture/run continuation.
 - Uses the connected capability without embedding provider-specific assumptions into document semantics.
 - Confirms success from the destination response and reports exact success/failure state.
 
