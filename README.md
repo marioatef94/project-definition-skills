@@ -1,59 +1,62 @@
 # Project Definition Skills
 
-Reusable, provider-agnostic Agent Skills for turning early ideas, existing notes, stakeholder input, and incomplete requirements into clear, reviewable project-definition documentation.
+[![Validate repository](https://github.com/marioatef94/project-definition-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/marioatef94/project-definition-skills/actions/workflows/validate.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-The repository is designed for both technical and non-technical projects. It does not require a specific documentation platform, project-management system, repository host, cloud provider, or local toolchain.
+**Public Beta** — reusable, provider-agnostic Agent Skills for turning early ideas, existing notes, stakeholder input, and incomplete requirements into clear, reviewable project-definition documentation.
 
-## What this project is for
+The repository is designed for technical and non-technical projects. The core skill does not require a specific documentation platform, project-management system, repository host, cloud provider, MCP server, or local toolchain.
 
-Project Definition Skills helps an AI agent guide a user from incomplete project context to a structured definition that is ready to review, share, and eventually execute.
+## What it does
 
-The skills are intended to help an agent:
+`project-definition` helps an AI agent move from incomplete context to a reliable project definition. It inspects what is already known, identifies material gaps, asks only high-value questions, normalizes confirmed requirements, proposes the minimum useful documentation set, validates drafts, keeps humans in control of authoritative content, and reports readiness without inventing missing information.
 
-- discover what is already known before asking questions;
-- identify material requirement gaps and unresolved assumptions;
-- guide structured project discovery without forcing a fixed questionnaire;
-- normalize requirements, constraints, decisions, risks, and open questions;
-- determine the minimum useful set of documents for the project;
-- generate consistent project-definition documents from reusable templates;
-- preserve facts, assumptions, unknowns, recommendations, and decisions as distinct concepts;
-- validate drafts before they become authoritative;
-- publish or save outputs through whatever destination capabilities the user's agent provides;
-- resume later and update an existing project definition instead of starting over.
+It can start from a one-sentence idea, proposal, meeting notes, transcript, stakeholder feedback, existing requirements, local files, connected documents, or an existing project that needs review and amendment.
+
+## Quick start
+
+Clone the repository:
+
+```bash
+git clone https://github.com/marioatef94/project-definition-skills.git
+cd project-definition-skills
+```
+
+Install the skill into the directory your Agent Skills-compatible client uses:
+
+```bash
+python scripts/install_skill.py --skill project-definition --target /path/to/your/agent/skills
+```
+
+The target path is intentionally supplied by you because personal, global, workspace, and project skill directories differ between AI clients.
+
+You can also copy `skills/project-definition/` manually.
+
+Then ask the agent to use the skill, for example:
+
+```text
+Use the project-definition skill.
+I have these meeting notes and a rough project idea. Review what I already have, ask me only the important missing questions, and prepare the minimum project-definition documents. Keep them local as Markdown files.
+```
+
+Or:
+
+```text
+Use the project-definition skill to review my existing requirements. Read the project documents available through my connected tools, identify gaps and conflicts, and propose updates. Do not publish anything until I approve the changes.
+```
 
 ## Example
 
-A user can start with something as small as:
+A user can start with:
 
 ```text
 I have an idea for a service that helps small businesses manage appointments.
 Help me define the project properly.
 ```
 
-The AI agent uses the `project-definition` skill to first understand what is already known, then asks only questions that materially affect the definition.
+A good first response should synthesize the limited known context, identify the highest-impact unknowns, and avoid premature implementation choices. It might determine that the target audience is known but booking ownership, customer self-service, payments, reminders, and the exact project type still need clarification.
 
-A simplified interaction might look like:
-
-```text
-Agent
-I can help define this project. From your description I currently know:
-
-- Problem area: appointment management
-- Target audience: small businesses
-- Project type: not yet confirmed
-
-The highest-impact gaps are:
-
-1. Who will create and manage appointments?
-2. Will customers book directly, or will staff create bookings?
-3. Are payments part of the first release?
-4. Are reminders or notifications required?
-5. Is this intended as software, a business process, or both?
-
-I will not choose technologies or invent missing requirements unless you ask me to recommend options.
-```
-
-After clarification, the agent may propose a minimum documentation set:
+After clarification, the agent may propose a minimum documentation set such as:
 
 ```text
 Proposed project definition
@@ -61,8 +64,8 @@ Proposed project definition
 1. Project Overview            Required
 2. Requirements Document       Required
 3. Research                    Not currently required
-4. Decision Record             Only if major choices are made
-5. Architecture Overview       Only if the project requires a technical solution
+4. Decision Record             Only if a major choice needs a durable record
+5. Architecture Overview       Only if a technical solution justifies it
 
 Open items
 - Payment scope is not decided
@@ -72,14 +75,14 @@ Readiness
 READY WITH OPEN ITEMS
 ```
 
-After human review, the same content can be saved to whatever destination is available and approved by the user.
+The skill does not generate every template just because a template exists.
 
 ## Example output
 
-The exact files or remote documents depend on the project and destination. A local-file workflow could produce:
+For a local workflow:
 
 ```text
-project-definition/
+project-docs/
 ├── project-overview.md
 ├── requirements.md
 ├── decisions.md
@@ -87,144 +90,47 @@ project-definition/
     └── payment-options.md
 ```
 
-A connected document or work-management system could instead receive equivalent pages, records, or work items without changing the core project-definition workflow.
+A connected documentation or work-management system may receive equivalent pages or records instead. The project-definition behavior remains the same.
 
-The skill should never create duplicate editable sources of truth by default. The user chooses which destination is authoritative.
+The skill should not create duplicate editable sources of truth by default. The user chooses the authoritative destination.
 
-## Works with connected tools, MCPs, or local files
+## MCPs, connected tools, repositories, and local files
 
-The skills are capability-based rather than provider-based.
+The skill is capability-based rather than provider-based.
 
-An executing AI agent may use any available mechanism that can provide the required capability, including:
+An executing AI agent may satisfy required capabilities through MCP servers, native connectors, document systems, work-management systems, repository integrations, cloud storage, local filesystem access, or another compatible mechanism.
 
-- MCP servers;
-- native agent tools or connectors;
-- document-management systems;
-- project or work-management systems;
-- repository integrations;
-- cloud file storage;
-- local filesystem access;
-- plain Markdown or other document files.
+Provider-specific authentication, credentials, URLs, API behavior, and setup stay in the executing environment rather than the core skill.
 
-The skill does **not** require any of these integrations. It adapts to the capabilities actually available in the user's environment.
-
-For example:
+The skill also works with **no persistence integration at all**. In that case it can generate complete drafts in the conversation and must state clearly that they were not saved.
 
 ```text
-Connected environment
-
 User
   ↓
-AI Agent + project-definition skill
+AI Agent + project-definition
   ↓
-Capability discovery
-  ├── Search existing documents
-  ├── Read existing requirements
-  ├── Create/update documents
-  ├── Create work items, if requested
-  └── Perform external research, if required
+Inspect available context
   ↓
-User review
+Gap analysis + adaptive clarification
   ↓
-Approved destination
-```
-
-Or completely locally:
-
-```text
-Local environment
-
-User
+Research only when needed
   ↓
-AI Agent + project-definition skill
+Normalize requirements
   ↓
-Read local notes / files
+Select minimum useful documents
   ↓
-Discovery + clarification
+Draft + validate
   ↓
-Generate project definition
-  ↓
-Write local .md or document files
-```
-
-Provider-specific authentication, credentials, URLs, commands, and API behavior belong to the executing agent or integration layer, not to the core skill.
-
-If no persistence capability exists, the agent can still produce complete drafts in the conversation and must state clearly that they were not saved.
-
-## Supported starting points
-
-The skill handles more than greenfield ideas. A user may begin with:
-
-- a one-sentence idea;
-- an existing proposal;
-- meeting notes or transcripts;
-- stakeholder feedback;
-- existing requirements;
-- local documents;
-- remote documents exposed through an agent tool;
-- an existing project that needs a requirements review;
-- several conflicting sources that need to be analyzed before clarification.
-
-The agent should inspect available context first and avoid asking the user to repeat information that is already supported by the provided sources.
-
-## Typical workflow
-
-```text
-Idea / existing material
-        ↓
-Context inventory
-        ↓
-Current-state synthesis
-        ↓
-Gap analysis
-        ↓
-Adaptive clarification
-        ↓
-Research, only when needed
-        ↓
-Requirement normalization
-        ↓
-Document selection
-        ↓
-Destination resolution
-        ↓
-Draft generation
-        ↓
-Validation
-        ↓
 Human review
-        ↓
-Publish / save
-        ↓
+  ↓
+Save through an approved capability, if available
+  ↓
 Readiness assessment
 ```
 
-The detailed design is documented in:
+## Current beta skill
 
-- [`docs/project-definition-skill-contract-v1.md`](docs/project-definition-skill-contract-v1.md)
-- [`docs/project-definition-user-journey-v1.md`](docs/project-definition-user-journey-v1.md)
-- [`docs/capability-contract-v1.md`](docs/capability-contract-v1.md)
-- [`docs/documentation-standard-v1.md`](docs/documentation-standard-v1.md)
-
-## Available skills
-
-### `project-definition` — Beta
-
-The first usable skill is available at [`skills/project-definition/`](skills/project-definition/).
-
-It supports:
-
-- greenfield project discovery;
-- existing requirements review;
-- adaptive clarification;
-- requirements normalization;
-- conditional research;
-- minimum-sufficient document selection;
-- local or connected persistence;
-- human-controlled authoritative publishing;
-- delivery-readiness assessment.
-
-The skill package contains a lean `SKILL.md`, lazy-loaded operational references, and generic document templates.
+The first skill is [`skills/project-definition/`](skills/project-definition/):
 
 ```text
 skills/project-definition/
@@ -244,53 +150,29 @@ skills/project-definition/
     └── architecture-overview-template.md
 ```
 
-## Using the skill
+Supported v1 governed artifact types are Project/Product Overview (`OVR`), Requirements (`REQ`), Research/Discovery (`RES`), Decision Record (`DEC`), and Architecture Overview (`ARC`) when technically justified.
 
-Install or copy the `skills/project-definition/` folder into a location your Agent Skills-compatible AI environment can discover. The exact personal/global/project skill directory varies by client, so follow the installation conventions of the AI environment you use.
+## Core behavior
 
-The skill itself does not contain credentials or integration configuration. Configure any connected tools, MCP servers, local filesystem access, or other capabilities in the executing AI environment.
+The beta is built around these rules: inspect context before questioning; distinguish facts, assumptions, inferences, recommendations, unknowns, and decisions; never manufacture requirements; do not force software concepts onto non-technical work; generate minimum-sufficient documentation; use capability abstractions instead of providers; require human approval before authoritative material changes; never silently move the canonical source after a write failure; and amend existing authoritative documents instead of creating unnecessary duplicates.
 
-Then invoke the skill explicitly or ask the AI agent for project-definition work, for example:
+The detailed contracts are in [`docs/project-definition-skill-contract-v1.md`](docs/project-definition-skill-contract-v1.md), [`docs/project-definition-user-journey-v1.md`](docs/project-definition-user-journey-v1.md), [`docs/capability-contract-v1.md`](docs/capability-contract-v1.md), and [`docs/documentation-standard-v1.md`](docs/documentation-standard-v1.md).
 
-```text
-Use the project-definition skill.
-I have these meeting notes and a rough project idea. Review what I already have, ask me only the important missing questions, and prepare the minimum project-definition documents. Keep them local as Markdown files.
-```
+## Validation and evaluations
 
-Or:
-
-```text
-Use the project-definition skill to review my existing requirements. Read the project documents available through my connected tools, identify gaps and conflicts, and propose updates. Do not publish anything until I approve the changes.
-```
-
-## Validation
-
-Deterministic repository validation is available locally and in CI.
+Run deterministic validation locally:
 
 ```bash
 python -X utf8 scripts/validate_repo.py
 ```
 
-It checks skill metadata and structure, referenced resources, relative Markdown links, evaluation-case structure, and core repository consistency without requiring model execution or third-party Python packages.
+CI runs the same validator and also smoke-tests the generic installer. Deterministic checks cover skill structure/frontmatter, resource references, relative Markdown links, evaluation-case structure, and repository consistency without third-party Python dependencies.
 
-The deterministic suite currently passes **202 checks with 0 validator warnings**.
+Behavioral quality is tested separately under [`evals/project-definition/`](evals/project-definition/). The suite contains 10 provider-neutral scenarios, reproducible fixtures, a 10-dimension rubric, critical-failure rules, result-recording guidance, and a copy/paste runner guide at [`evals/project-definition/RUNNING-EVALS.md`](evals/project-definition/RUNNING-EVALS.md).
 
-Behavioral quality is evaluated separately through [`evals/project-definition/`](evals/project-definition/), because deterministic checks cannot prove that an AI agent will ask good questions, preserve uncertainty, respect approval boundaries, or avoid hallucinated requirements.
+Initial same-model smoke results are committed only as regression evidence. They are explicitly marked `Self-smoke`; they are not represented as independent cross-agent validation.
 
-See [`docs/validation.md`](docs/validation.md) for details.
-
-## Design principles
-
-1. **Provider agnostic** — Skills describe required capabilities, not vendor-specific integrations.
-2. **Storage agnostic** — Outputs may live remotely or locally; the skill does not mandate a destination.
-3. **Human governed** — AI drafts and validates; humans establish authoritative project truth.
-4. **Evidence first** — Missing information remains missing until supplied or verified.
-5. **Adaptive discovery** — Ask only questions that materially improve the project definition.
-6. **Progressive disclosure** — Load supporting references and templates only when needed.
-7. **Reusable by default** — No client-, industry-, organization-, or implementation-specific assumptions in core skills.
-8. **Minimum sufficient documentation** — Generate artifacts because they add value, not because a checklist exists.
-9. **Safe failure** — Missing integrations or unavailable destinations must not silently change where authoritative information is stored.
-10. **Resumable workflows** — Existing project definitions should be amended rather than regenerated unnecessarily.
+See [`docs/validation.md`](docs/validation.md) for the validation boundary.
 
 ## Repository structure
 
@@ -298,37 +180,28 @@ See [`docs/validation.md`](docs/validation.md) for details.
 project-definition-skills/
 ├── skills/                 # Portable Agent Skills
 ├── evals/                  # Provider-neutral behavioral evaluations
-├── scripts/                # Deterministic repository validation
-├── docs/                   # Standards and design guidance
-├── .github/                # Contribution, issue, and CI configuration
+├── scripts/                # Generic installer + deterministic validation
+├── docs/                   # Standards, contracts, and design guidance
+├── .github/                # Issues, PR template, and CI
 ├── README.md
 ├── CONTRIBUTING.md
+├── CHANGELOG.md
 ├── CODE_OF_CONDUCT.md
 ├── SECURITY.md
 └── LICENSE
 ```
 
-Each skill follows the portable Agent Skills folder convention:
+## Beta status
 
-```text
-skills/<skill-name>/
-├── SKILL.md                # Required skill entry point
-├── references/             # Optional supporting guidance
-├── assets/                 # Optional templates and static resources
-└── scripts/                # Optional deterministic helpers
-```
-
-## Project status
-
-**Beta / early development.** The first `project-definition` skill is implemented, with deterministic CI and a behavioral evaluation suite in place. The behavioral cases still need systematic execution across multiple project types and compatible AI environments before a stable release.
+The repository is usable as an open-source public beta. Deterministic validation is enforced in CI and the core behavioral suite is in place. Independent cross-agent evaluation is tracked as additional release-confidence work before a future stable `1.0` claim; lack of that evidence does not prevent users from evaluating and using the beta today.
 
 ## Contributing
 
-Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) before opening a change.
+Contributions are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md), run the validator locally, and add or update behavioral cases when changing skill behavior.
 
 ## Security
 
-Please report security concerns according to [SECURITY.md](SECURITY.md).
+Report security concerns according to [SECURITY.md](SECURITY.md). Do not include credentials, secrets, private client data, or sensitive evaluation material in issues or committed fixtures.
 
 ## License
 
