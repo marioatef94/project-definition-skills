@@ -7,10 +7,13 @@ This is the executable summary used by the `project-definition` skill. The repos
 1. Every governed artifact has one authoritative destination.
 2. Derived copies must be clearly non-authoritative.
 3. Human approval is required before AI-generated content becomes authoritative project truth.
-4. Unknowns, assumptions, recommendations, and decisions remain distinct.
+4. Unknowns, assumptions, recommendations, decisions, implementation observations, and requirements remain distinct.
 5. Do not silently resolve conflicts between authoritative sources.
-6. Do not generate an artifact unless it adds distinct value.
-7. Provider-specific storage details must not change document semantics.
+6. Do not let observed implementation silently supersede governed intent.
+7. Do not generate an artifact unless it adds distinct value.
+8. Keep each artifact focused on its governance role.
+9. Provider-specific storage details must not change document semantics.
+10. After authoritative persistence, verify the stored result when the environment supports read-back or relationship inspection.
 
 ## v1 artifact types
 
@@ -19,6 +22,79 @@ This is the executable summary used by the `project-definition` skill. The repos
 - `RES` — Research / Discovery
 - `DEC` — Decision Record
 - `ARC` — Architecture Overview
+
+## Artifact-role purity
+
+Each governed artifact has a primary semantic job.
+
+### OVR
+
+Stable shared understanding of purpose, users/stakeholders, scope, outcomes, major constraints, and links to deeper artifacts.
+
+Avoid letting volatile repository revisions, bug lists, current deployment trivia, or temporary implementation state dominate the overview. Such observations may be linked or briefly noted when they materially affect understanding.
+
+### REQ
+
+Governed intended behavior, outcomes, rules, qualities, and constraints.
+
+Do not embed transient implementation-status commentary into requirement statements. Keep `bug`, `currently missing`, `implementation uses`, `current production config`, `required fix`, and similar observations in a separate current-state or gap-analysis output.
+
+### RES
+
+Evidence, investigation, options, uncertainty, and recommendations. Research may inform a requirement or decision but does not become one by itself.
+
+### DEC
+
+An explicit choice and its rationale. A current implementation choice is not automatically an approved decision. If implementation and intent differ, record a proposed decision only after surfacing the conflict; approval is required before the decision becomes authoritative.
+
+### ARC
+
+High-level technical structure appropriate to the project's audience and purpose.
+
+Be explicit about whether an architecture artifact describes:
+
+- **target/intended architecture** — governed direction;
+- **current/observed architecture** — a dated implementation snapshot;
+- or both, with clearly separated sections.
+
+Do not merge intended and observed architecture into one indistinguishable truth layer.
+
+## Observed-state snapshots
+
+Current implementation reviews, audits, repository scans, deployment observations, and requirement-vs-implementation matrices are evidence about a point in time.
+
+When represented as a standalone or supporting artifact, label them with snapshot semantics such as:
+
+```text
+Status: Snapshot
+As of: <date or source revision>
+Evidence: <source references>
+```
+
+A snapshot can be authoritative evidence of what was observed at that time, but it must not be mislabeled as durable project intent.
+
+Prefer lifecycle/status language that makes volatility visible:
+
+- `Snapshot`
+- `Current-state review`
+- `Active gap analysis`
+- `Completed audit`
+
+rather than using `Authoritative` alone for transient observed state.
+
+## Source authority
+
+Distinguish:
+
+- governed project intent;
+- observed implementation state;
+- historical decisions;
+- work/execution records;
+- recommendations/inference.
+
+Source code, configuration, prototypes, deployed behavior, work items, and tests can establish current-state evidence. They do not automatically establish intended requirements or approved decisions.
+
+If observed implementation conflicts with an authoritative requirement/decision, preserve the governed intent and record the mismatch. Changing intent requires human approval.
 
 ## Document identifiers
 
@@ -57,6 +133,8 @@ Use metadata when the destination and project maturity justify it. Typical field
 
 Do not force metadata that adds no value to a lightweight local draft.
 
+For observed-state content, include an `as of` date/source revision when practical.
+
 ## Information-state labels
 
 During drafting and validation, distinguish:
@@ -70,6 +148,7 @@ During drafting and validation, distinguish:
 - Conflict
 - Recommendation
 - Evidence
+- Observed implementation state
 
 These labels may be explicit in the document when useful or remain part of the agent's working model.
 
@@ -77,7 +156,7 @@ These labels may be explicit in the document when useful or remain part of the a
 
 Use lifecycle semantics appropriate to the artifact rather than one universal status list.
 
-### OVR / ARC
+### OVR / target ARC
 
 Typical lifecycle:
 
@@ -85,7 +164,11 @@ Typical lifecycle:
 Active → Deprecated → Archived
 ```
 
-These are living current-state documents.
+These are living governed descriptions of project direction/current agreed structure.
+
+### Current/observed ARC or implementation review
+
+Use snapshot semantics with an explicit observation date/revision. Do not imply that an old implementation snapshot remains current after its evidence changes.
 
 ### REQ
 
@@ -135,6 +218,10 @@ AI may read, analyze, validate, and propose amendments. Material changes require
 
 Treat as read-only by default. Create a new decision or amendment rather than rewriting history.
 
+### Observed-state snapshots
+
+AI may refresh the snapshot from new evidence, but must preserve or clearly replace the prior `as of` reference. Refreshing observed state does not authorize changing requirements or decisions.
+
 ## Authoritative destination
 
 The destination may be:
@@ -174,13 +261,25 @@ Use stable references when useful. Common relationship semantics:
 
 Do not duplicate large blocks of authoritative content merely to establish a relationship.
 
+When the destination supports real hyperlinks, typed relations, or parent/child references, use the actual destination mechanism rather than decorative placeholder text.
+
+Plain text such as:
+
+```text
+[Requirements]
+```
+
+is not evidence that a relationship or hyperlink exists.
+
+After publishing connected artifacts, verify important relationships when the environment supports inspection. Do not report documents as `linked`, `cross-linked`, or `navigable` without destination-confirmed evidence.
+
 ## Requirement identifiers
 
 Use local IDs when traceability adds value:
 
 - `FR-001` — functional requirement;
 - `BR-001` — business / operating rule;
-- `NFR-001` — non-functional requirement;
+- `NFR-001` — non-functional / quality requirement;
 - `CON-001` — constraint.
 
 The stable reference combines document ID and local ID when a document ID exists.
@@ -209,11 +308,14 @@ Validate against:
 - internal consistency;
 - unsupported claims;
 - assumption/fact confusion;
+- implementation-state/requirement confusion;
+- implementation behavior silently superseding intent;
+- artifact-role leakage;
+- lifecycle/status appropriateness;
 - unresolved blocking conflicts;
 - duplicated requirements;
-- broken relationships;
-- source-of-truth ambiguity;
-- lifecycle appropriateness.
+- broken, placeholder, or unresolved relationships;
+- source-of-truth ambiguity.
 
 Validation severity:
 
@@ -227,12 +329,17 @@ An approved artifact should not contain an unresolved blocker unless the user ex
 
 Before authoritative publication, present a change summary and obtain approval.
 
+Read `publishing.md` for the full persistence-integrity procedure.
+
 After the write:
 
 - verify success;
 - expose the resulting location/reference when available;
+- read back/inspect the persisted artifact when supported;
+- verify important title/status/parent/content/relationship properties when relevant;
+- report any unverified integrity dimension explicitly;
 - report partial failures precisely;
-- never claim publication occurred without confirmation.
+- never claim publication or linking occurred without confirmation.
 
 ## Deletion and history
 
