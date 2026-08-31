@@ -1,6 +1,6 @@
 # Capability Guidance
 
-Use this reference when the workflow needs access to sources, research, persistence, or work-management systems.
+Use this reference when the workflow needs access to sources, research, persistence, relationship management, or work-management systems.
 
 ## Principle
 
@@ -29,7 +29,8 @@ Useful operations:
 - read a local file;
 - read a remote document or record;
 - read repository content;
-- read a work item or structured project record.
+- read a work item or structured project record;
+- inspect a persisted document's metadata, parent/container, revision, or relationships when supported.
 
 Treat access as read-only unless a separate write capability is confirmed.
 
@@ -41,9 +42,38 @@ Useful operations:
 - update an existing document or file;
 - create a container or folder when required;
 - preserve relationships between artifacts;
-- confirm the resulting location or identifier.
+- create actual links/references supported by the destination;
+- confirm the resulting location or identifier;
+- read back or inspect the persisted result when supported.
 
 Never report success unless the destination confirms the write.
+
+A create/update success does not automatically prove that hierarchy, lifecycle status, formatting, or cross-document relationships were persisted correctly. Verify those separately when the capability exists.
+
+### Relationship / integrity verification
+
+When governed artifacts should be related or navigable, useful operations may include:
+
+- inspect parent/child hierarchy;
+- inspect stored hyperlinks or document references;
+- resolve stable IDs/locators;
+- read the persisted body to confirm a reference rendered as an actual link;
+- inspect lifecycle/status and revision metadata.
+
+Do not claim `linked`, `cross-linked`, `related`, `child of`, or equivalent destination state from decorative text alone.
+
+If the environment can write but cannot inspect the result, distinguish:
+
+```text
+Write confirmed
+Integrity verification unavailable
+```
+
+from:
+
+```text
+Write and relationship integrity verified
+```
 
 ### Work management
 
@@ -73,6 +103,8 @@ Useful operations:
 - read directories and files;
 - create directories;
 - write or update local documents;
+- inspect saved content after a write;
+- validate relative links/paths when practical;
 - use versioned repository storage when available.
 
 A local file may be the authoritative document if the user chooses it.
@@ -88,6 +120,8 @@ When a capability becomes necessary:
 3. ask the user only when destination, authorization, or intent is ambiguous;
 4. explain limitations if the capability is unavailable.
 
+For publication, discover read-back/relationship-inspection capability only when it is useful to validate the intended persisted result. Do not enumerate every provider-specific API up front.
+
 ## Required vs optional
 
 The only universally required capability is interaction with the user.
@@ -96,6 +130,7 @@ Everything else is optional:
 
 - reading existing sources improves discovery;
 - persistence enables saving or publishing;
+- post-write read-back improves persistence confidence;
 - research enables external verification;
 - work-management access enables optional downstream decomposition.
 
@@ -113,6 +148,8 @@ When a requested operation fails:
 6. offer only alternatives the environment can actually perform.
 
 If a multi-document write partially succeeds, report success or failure per artifact.
+
+If the write succeeds but post-write verification reveals an integrity defect, report the write and the integrity defect separately. Do not describe the publication as fully complete until material integrity problems are repaired or explicitly accepted.
 
 ## Canonical destination rule
 
