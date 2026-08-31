@@ -65,10 +65,15 @@ A case may define stricter expectations.
 | `008-research-required` | Verify conditional research and evidence separation. |
 | `009-deferred-open-questions` | Verify uncertainty remains explicit when the user defers decisions. |
 | `010-resume-existing-project` | Verify resumable amendment behavior and avoidance of duplicate authoritative docs. |
+| `011-implementation-does-not-redefine-intent` | Verify observed implementation cannot silently supersede governed requirements or decisions. |
+| `012-connected-document-link-integrity` | Verify connected publication creates and verifies real hierarchy/links rather than decorative text. |
+| `013-artifact-purity-and-snapshot-status` | Verify requirement/vision purity and clear snapshot semantics for volatile current-state evidence. |
 
 ## Current evidence
 
-The repository contains same-model smoke evidence for all 10 initial scenarios. Persistence happy-path, local-only persistence, connected-write failure, and in-place amendment paths include real tool outcomes where described in the result records.
+The repository contains same-model smoke evidence for the 10 initial scenarios. Persistence happy-path, local-only persistence, connected-write failure, and in-place amendment paths include real tool outcomes where described in the result records.
+
+Cases 011–013 are regression scenarios added from real connected-document usage. They intentionally have no pre-existing independent-pass claim merely because the contract was updated. They must be executed and recorded like any other behavioral case.
 
 These results support regression confidence for the public beta but do not constitute independent cross-agent validation.
 
