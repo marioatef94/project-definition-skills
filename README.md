@@ -125,6 +125,8 @@ Human review
   ↓
 Save through an approved capability, if available
   ↓
+Read back / verify persisted integrity when supported
+  ↓
 Readiness assessment
 ```
 
@@ -141,6 +143,7 @@ skills/project-definition/
 │   ├── requirements.md
 │   ├── document-selection.md
 │   ├── documentation-standard.md
+│   ├── publishing.md
 │   └── readiness.md
 └── assets/
     ├── overview-template.md
@@ -154,9 +157,9 @@ Supported v1 governed artifact types are Project/Product Overview (`OVR`), Requi
 
 ## Core behavior
 
-The beta is built around these rules: inspect context before questioning; distinguish facts, assumptions, inferences, recommendations, unknowns, and decisions; never manufacture requirements; do not force software concepts onto non-technical work; generate minimum-sufficient documentation; use capability abstractions instead of providers; require human approval before authoritative material changes; never silently move the canonical source after a write failure; and amend existing authoritative documents instead of creating unnecessary duplicates.
+The beta is built around these rules: inspect context before questioning; distinguish facts, assumptions, inferences, recommendations, unknowns, decisions, and observed implementation state; never manufacture requirements; never let current implementation silently supersede governed intent; keep requirements focused on intended behavior; distinguish target architecture from current-state snapshots; do not force software concepts onto non-technical work; generate minimum-sufficient documentation; use capability abstractions instead of providers; require human approval before authoritative material changes; verify connected-document hierarchy/links after publication when supported; never silently move the canonical source after a write failure; and amend existing authoritative documents instead of creating unnecessary duplicates.
 
-The detailed contracts are in [`docs/project-definition-skill-contract-v1.md`](docs/project-definition-skill-contract-v1.md), [`docs/project-definition-user-journey-v1.md`](docs/project-definition-user-journey-v1.md), [`docs/capability-contract-v1.md`](docs/capability-contract-v1.md), and [`docs/documentation-standard-v1.md`](docs/documentation-standard-v1.md).
+The detailed contracts are in [`docs/project-definition-skill-contract-v1.md`](docs/project-definition-skill-contract-v1.md), [`docs/project-definition-user-journey-v1.md`](docs/project-definition-user-journey-v1.md), [`docs/capability-contract-v1.md`](docs/capability-contract-v1.md), [`docs/documentation-standard-v1.md`](docs/documentation-standard-v1.md), and the additive [`docs/project-definition-governance-hardening-v1.md`](docs/project-definition-governance-hardening-v1.md).
 
 ## Validation and evaluations
 
@@ -168,7 +171,9 @@ python -X utf8 scripts/validate_repo.py
 
 CI runs the same validator and also smoke-tests the generic installer. Deterministic checks cover skill structure/frontmatter, resource references, relative Markdown links, evaluation-case structure, and repository consistency without third-party Python dependencies.
 
-Behavioral quality is tested separately under [`evals/project-definition/`](evals/project-definition/). The suite contains 10 provider-neutral scenarios, reproducible fixtures, a 10-dimension rubric, critical-failure rules, result-recording guidance, and a copy/paste runner guide at [`evals/project-definition/RUNNING-EVALS.md`](evals/project-definition/RUNNING-EVALS.md).
+Behavioral quality is tested separately under [`evals/project-definition/`](evals/project-definition/). The suite contains **13 provider-neutral scenarios**, reproducible fixtures, a 10-dimension rubric, critical-failure rules, result-recording guidance, and a copy/paste runner guide at [`evals/project-definition/RUNNING-EVALS.md`](evals/project-definition/RUNNING-EVALS.md).
+
+The original 10 scenarios retain their same-model smoke evidence. Cases 011–013 are governance regressions derived from real connected-document usage and do not claim independent passes until they are actually executed and recorded.
 
 Initial same-model smoke results are committed only as regression evidence. They are explicitly marked `Self-smoke`; they are not represented as independent cross-agent validation.
 

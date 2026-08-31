@@ -4,7 +4,40 @@ Use this reference when turning confirmed project context into structured requir
 
 ## Principle
 
-Requirements describe expected outcomes, behavior, rules, qualities, or constraints. They should not silently encode an implementation choice unless that choice is itself an explicit project constraint or approved decision.
+Requirements describe **intended** outcomes, behavior, rules, qualities, or constraints. They should not silently encode an implementation choice unless that choice is itself an explicit project constraint or approved decision.
+
+Observed implementation is evidence of current state. It is not automatically project intent.
+
+## Source authority for requirements
+
+When normalizing requirement truth, distinguish at least:
+
+1. explicit user/stakeholder requirement;
+2. requirement extracted from a current authoritative requirements artifact;
+3. approved constraint or decision that governs the requirement;
+4. observed implementation behavior;
+5. inference;
+6. recommendation.
+
+The first three may establish governed intent according to project authority. The remaining categories do not become requirements without explicit approval.
+
+If current implementation conflicts with a governed requirement or approved decision:
+
+```text
+Governed intent
+      ≠
+Observed implementation
+```
+
+then:
+
+1. keep the governed intent unchanged;
+2. record the implementation mismatch separately;
+3. explain the impact when known;
+4. label proposed changes as recommendations;
+5. require human approval before changing the governed requirement or decision.
+
+Do not choose the implementation simply because it is newer, already deployed, easier to preserve, or more complete.
 
 ## Requirement categories
 
@@ -50,6 +83,37 @@ Keep unverified assumptions separate from requirements. An assumption may later 
 
 Record material unresolved items explicitly instead of filling them with agent guesses.
 
+## Requirement purity
+
+A governed requirement statement should answer what must be true, not mix the requirement with implementation-status commentary.
+
+Good:
+
+```text
+AUT-001 — The service must validate tokens issued by the approved identity provider.
+```
+
+Keep separate:
+
+```text
+Current implementation: generic token validation exists, but the approved provider is not configured.
+Status: Missing / Partial.
+```
+
+Do not embed transient current-state phrases inside requirement statements, such as:
+
+- `currently missing`;
+- `bug`;
+- `required fix`;
+- `current production config`;
+- `implementation uses`;
+- `the repository currently`;
+- `not yet implemented`.
+
+Those belong in a separate implementation-status, gap-analysis, review, or evidence section/artifact.
+
+A requirement may legitimately mention an implementation technology when that technology is itself an approved constraint or decision. In that case, make the governing constraint/decision explicit rather than presenting the implementation as self-justifying.
+
 ## Requirement quality
 
 Prefer requirements that are:
@@ -60,7 +124,8 @@ Prefer requirements that are:
 - free from duplicated meaning;
 - consistent with confirmed project terminology;
 - testable or verifiable conceptually when that is appropriate;
-- implementation-neutral unless implementation is constrained.
+- implementation-neutral unless implementation is constrained;
+- free from transient implementation-status commentary.
 
 ## Stable local identifiers
 
@@ -87,10 +152,36 @@ Distinguish:
 
 - explicit user/stakeholder requirement;
 - requirement extracted from an authoritative document;
+- approved constraint/decision affecting the requirement;
 - inference from current behavior;
 - recommendation proposed by the agent.
 
-Only the first two are normally requirement truth without additional approval.
+Implementation behavior may support a current-state observation, but it does not establish a requirement merely by existing.
+
+## Implementation-driven recommendations
+
+The agent may recommend aligning project intent with an implementation when doing so appears lower-risk, clearer, or more practical.
+
+That recommendation must remain visibly separate until approved.
+
+Correct sequence:
+
+```text
+Requirement A
+Implementation B
+Conflict detected
+Recommendation: change requirement to B
+Human approval
+Approved decision / amended requirement
+```
+
+Forbidden sequence:
+
+```text
+Requirement A
+Implementation B
+Therefore requirement = B
+```
 
 ## Deduplication
 
@@ -112,6 +203,8 @@ When requirements conflict:
 - ask the user or responsible stakeholder to resolve it.
 
 The agent may recommend a resolution but must label it as a recommendation.
+
+The same rule applies when a requirement conflicts with implementation state. Existing code does not count as the human resolution.
 
 ## Scope boundaries
 
