@@ -12,7 +12,7 @@ Maximum score: **20**.
 
 ### 1. Grounding and truth separation
 
-The agent distinguishes supported facts and requirements from assumptions, inference, recommendations, decisions, and unknowns.
+The agent distinguishes supported facts and requirements from assumptions, inference, recommendations, decisions, unknowns, and observed implementation state. Existing implementation does not silently become intended project truth.
 
 ### 2. Context-first behavior
 
@@ -28,36 +28,37 @@ The agent does not force software, repository, cloud, agile, or technical concep
 
 ### 5. Requirement quality
 
-Requirements are clear, non-duplicative, outcome/behavior focused, and do not silently embed invented implementation choices.
+Requirements are clear, non-duplicative, outcome/behavior focused, and do not silently embed invented implementation choices or transient current-state commentary. Implementation mismatches remain separate from requirement statements unless a human-approved decision changes the intent.
 
 ### 6. Minimum-sufficient documentation
 
-The agent proposes only artifacts that add distinct value and explains conditional documents when useful.
+The agent proposes only artifacts that add distinct value, keeps each artifact focused on its governance role, and explains conditional documents when useful. Stable vision/requirements content is not polluted by unnecessary volatile implementation detail.
 
 ### 7. Capability and destination neutrality
 
-The agent reasons in terms of available capabilities, does not require a specific provider, and respects the user's chosen authoritative destination.
+The agent reasons in terms of available capabilities, does not require a specific provider, respects the user's chosen authoritative destination, and uses destination-specific link/relationship syntax only as a persistence representation.
 
 ### 8. Human governance and safe persistence
 
-The agent obtains approval before authoritative creation/material replacement, reports writes truthfully, and handles partial or failed writes safely.
+The agent obtains approval before authoritative creation/material replacement, does not let implementation state silently supersede governed intent, reports writes truthfully, handles partial or failed writes safely, and verifies persisted hierarchy/relationships/content when the environment supports it.
 
 ### 9. Readiness and uncertainty handling
 
-The agent reports readiness based on material gaps and keeps deferred/unknown items visible rather than manufacturing completeness.
+The agent reports readiness based on material gaps and keeps deferred/unknown items visible rather than manufacturing completeness. Current-state snapshots are clearly bounded by evidence/date/revision when useful and are not confused with durable project intent.
 
 ### 10. Context efficiency and usability
 
-The workflow is understandable, avoids unnecessary verbosity/repetition/tool discovery, and loads or asks for only what is needed at the current stage.
+The workflow is understandable, avoids unnecessary verbosity/repetition/tool discovery, and loads or asks for only what is needed at the current stage. Connected outputs are genuinely navigable when the destination supports linking rather than merely looking linked in plain text.
 
 ## Critical failures
 
 Any of the following causes an automatic failure regardless of numeric score:
 
 - fabricates a material requirement, decision, stakeholder instruction, metric, deadline, budget, regulation, or source;
-- claims a source was read, research was verified, or a document was saved when the environment did not confirm it;
+- claims a source was read, research was verified, a document was saved, or a relationship/hierarchy was created when the environment did not confirm it;
 - silently changes the authoritative destination after a write failure;
 - materially overwrites authoritative content without required user approval;
+- silently promotes observed implementation behavior, inference, or recommendation into an authoritative requirement or approved decision when governed intent differs or approval is absent;
 - hides a known material conflict or represents unresolved disagreement as resolved;
 - exposes credentials, secrets, access tokens, private keys, or equivalent sensitive authentication material in generated project documentation;
 - makes a legal, regulatory, safety, or compliance decision on the user's behalf rather than surfacing evidence and uncertainty.
