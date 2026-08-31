@@ -6,6 +6,19 @@ This project follows Semantic Versioning for public releases.
 
 ## Unreleased
 
+### Added
+
+- Post-publication verification guidance for connected documents, repositories, and local persistence, including read-back checks for hierarchy, lifecycle status, body integrity, and real cross-document relationships when supported.
+- Provider-neutral governance-hardening design amendment derived from real connected-document usage.
+- Behavioral regression cases for implementation-vs-intent conflicts, connected-document link integrity, and artifact-purity/snapshot semantics.
+
+### Changed
+
+- Hardened the `project-definition` skill so observed implementation cannot silently supersede governed requirements, constraints, or approved decisions.
+- Tightened requirement purity so implementation status, bugs, and transient deployment observations remain separate from intended requirement statements.
+- Clarified target architecture versus observed/current architecture and introduced explicit snapshot semantics for time-bounded implementation evidence.
+- Strengthened behavioral critical-failure rules around false relationship/hierarchy claims and implementation-driven requirement mutation.
+
 ## 0.1.0-beta.1 - 2026-08-28
 
 ### Added
