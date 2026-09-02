@@ -94,6 +94,8 @@ A connected documentation or work-management system may receive equivalent pages
 
 The skill should not create duplicate editable sources of truth by default. The user chooses the authoritative destination.
 
+**See a full example:** [`evals/project-definition/fixtures/ready-appointment-project-outputs/`](evals/project-definition/fixtures/ready-appointment-project-outputs/) contains a complete, filled-in Project Overview and Requirements Document generated from the appointment-booking scenario used in the [Example](#example) section above, including how open items, assumptions, and risks stay visibly marked instead of being resolved by guessing.
+
 ## MCPs, connected tools, repositories, and local files
 
 The skill is capability-based rather than provider-based.

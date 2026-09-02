@@ -11,6 +11,12 @@ This project follows Semantic Versioning for public releases.
 - Post-publication verification guidance for connected documents, repositories, and local persistence, including read-back checks for hierarchy, lifecycle status, body integrity, and real cross-document relationships when supported.
 - Provider-neutral governance-hardening design amendment derived from real connected-document usage.
 - Behavioral regression cases for implementation-vs-intent conflicts, connected-document link integrity, and artifact-purity/snapshot semantics.
+- A worked example (`evals/project-definition/fixtures/ready-appointment-project-outputs/`) showing a complete, filled-in Project Overview and Requirements Document generated from the existing appointment-booking fixture, so adopters can see real skill output rather than only a file-tree stub.
+- A materiality decision table in `references/discovery.md` giving concrete ask/don't-ask examples, so agents judge "material" gaps consistently instead of relying on per-model interpretation.
+
+### Fixed
+
+- `docs/project-definition-skill-contract-v1.md` Section 16 listed a stale reference/asset manifest (missing `references/capabilities.md` and `references/publishing.md`, and an outdated asset filename) that no longer matched the shipped `skills/project-definition/` folder or the README. Reconciled both to the actual shipped structure.
 
 ### Changed
 

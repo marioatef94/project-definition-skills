@@ -453,23 +453,25 @@ The first version will not attempt to:
 
 ## 16. Initial implementation shape
 
-The expected initial skill package is:
+The shipped skill package is:
 
 ```text
 skills/project-definition/
 ├── SKILL.md
 ├── references/
+│   ├── capabilities.md
 │   ├── discovery.md
 │   ├── requirements.md
 │   ├── document-selection.md
-│   ├── readiness.md
-│   └── documentation-standard.md
+│   ├── documentation-standard.md
+│   ├── publishing.md
+│   └── readiness.md
 └── assets/
-    ├── project-overview-template.md
+    ├── overview-template.md
     ├── requirements-template.md
     ├── research-template.md
     ├── decision-template.md
     └── architecture-overview-template.md
 ```
 
-The final structure may be refined before the first release to minimize duplication and unnecessary context loading.
+This mirrors the "Current beta skill" listing in `README.md`. `references/capabilities.md` (capability-detection guidance) and `references/publishing.md` (destination write/verify guidance) were added during implementation to keep `SKILL.md` itself short per Section 13, and `assets/project-overview-template.md` was renamed to `assets/overview-template.md`; neither change was reflected back into this contract until now. Keep this section and the README listing in sync going forward — `scripts/validate_repo.py` checks that resources referenced by `SKILL.md` actually exist, but it does not diff this section against the README, so a manual check is still required whenever the reference set changes.

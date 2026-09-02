@@ -60,6 +60,21 @@ Consider, when applicable:
 
 Do not treat every category as mandatory.
 
+## Judging materiality
+
+"Material" is not a feeling — check the gap against this table before deciding whether to ask, note as an assumption, or ignore.
+
+| Gap example | Ask now? | Why |
+| --- | --- | --- |
+| Who the primary user/beneficiary is | Yes | Changes almost every downstream requirement and cannot be safely assumed |
+| Whether payments/PII/regulated data are involved | Yes | Affects compliance, architecture, and risk; wrong assumption is expensive to unwind |
+| Whether a hard launch date exists | Yes, if user hints at urgency or a deadline is plausible | Changes scope trade-offs; skip only if nothing in context suggests a deadline matters |
+| Preferred color palette / visual style | No | Cosmetic; note as an open item only if the user is a designer/brand-sensitive stakeholder |
+| Exact database vendor when no constraint was stated | No | Implementation detail with no requirement-level consequence yet; record as a later architecture decision, not a definition gap |
+| Whether existing doc naming conventions should be kept | No | Ask only if conflicting conventions exist in the source material; otherwise default to matching what's already there |
+
+Rule of thumb: if getting the answer wrong would force a **rewrite of a requirement, a scope boundary, or a risk assessment**, it's material — ask. If getting it wrong only changes **wording, ordering, or an implementation detail with no stated constraint**, it isn't — note it as an assumption or skip it.
+
 ## Question strategy
 
 Ask a question only when the answer can materially affect at least one of:
