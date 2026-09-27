@@ -1,5 +1,7 @@
 # Project Definition Skills
 
+> **Moved to [Skill Hub](https://github.com/marioatef94/skill-hub).** The maintained `project-definition` skill now lives at [`skills/project-management/project-definition/`](https://github.com/marioatef94/skill-hub/tree/master/skills/project-management/project-definition). This repository remains available for its original release history and existing links. Install updates from Skill Hub.
+
 [![Validate repository](https://github.com/marioatef94/project-definition-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/marioatef94/project-definition-skills/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
